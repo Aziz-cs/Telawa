@@ -754,7 +754,7 @@ void getToastMessage({required int currentPage}) {
   }
 }
 
-String getGoz2Name(int page) {
+String getJuzName(int page) {
   if (page < 22) {
     return 'الجزء الأول';
   } else if (page < 42) {
