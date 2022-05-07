@@ -9,7 +9,11 @@ import '../utils/helper.dart';
 import '../utils/sharedprefs.dart';
 
 class QuranPage extends StatefulWidget {
-  const QuranPage({Key? key}) : super(key: key);
+  QuranPage({
+    Key? key,
+    this.isBookmarkVisible = false,
+  }) : super(key: key);
+  bool isBookmarkVisible;
 
   @override
   State<QuranPage> createState() => _QuranPageState();
@@ -49,6 +53,17 @@ class _QuranPageState extends State<QuranPage> {
                 pageView,
                 _buildTopDetailsBar(),
                 Visibility(
+                  visible: widget.isBookmarkVisible,
+                  child: Positioned(
+                      top: 0,
+                      left: 5,
+                      child: Image.asset(
+                        'assets/images/bookmark_ic.png',
+                        width: 25,
+                        color: Colors.blueGrey.withOpacity(0.7),
+                      )),
+                ),
+                Visibility(
                   visible: _isBarsVisible,
                   child: Positioned(
                     bottom: 0,
@@ -82,12 +97,26 @@ class _QuranPageState extends State<QuranPage> {
   PageView _buildQuranPageView() {
     return PageView(
       onPageChanged: (currentPage) {
+        print('currentpage: ${sharedPrefs.lastPage}');
+        print('bookmarkpage: ${sharedPrefs.markedPage}');
         if (_isBarsVisible) {
           setState(() {
             sharedPrefs.lastPage = currentPage;
           });
         } else {
           sharedPrefs.lastPage = currentPage;
+        }
+        if (isCurrentPageIsTheMarkedPage()) {
+          print('in isCurrentPageIsTheMarkedPage');
+          setState(() {
+            widget.isBookmarkVisible = true;
+          });
+        } else if (!isCurrentPageIsTheMarkedPage() &&
+            widget.isBookmarkVisible) {
+          print('in not isCurrentPageIsTheMarkedPage block');
+          setState(() {
+            widget.isBookmarkVisible = false;
+          });
         }
         getToastMessage(currentPage: currentPage + 1);
       },
@@ -124,7 +153,7 @@ class _QuranPageState extends State<QuranPage> {
       ),
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
-        hintText: 'اكتب رقم الصفحة هنا',
+        hintText: 'اكتب رقم الصفة هنا',
         contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         isDense: true,
         hintStyle: TextStyle(),
@@ -214,9 +243,10 @@ class _QuranPageState extends State<QuranPage> {
                 size: 21,
               ),
               onPressed: () {
-                sharedPrefs.markedPage = sharedPrefs.lastPage;
+                sharedPrefs.markedPage = sharedPrefs.lastPage + 1;
                 setState(() {
                   _isBarsVisible = false;
+                  widget.isBookmarkVisible = true;
                 });
                 showToast('تم حفظ العلامة');
               },
@@ -242,11 +272,11 @@ class _QuranPageState extends State<QuranPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                sharedPrefs.lastPage = sharedPrefs.markedPage;
-                Navigator.push(
+                sharedPrefs.lastPage = sharedPrefs.markedPage - 1;
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const QuranPage(),
+                    builder: (context) => QuranPage(isBookmarkVisible: true),
                   ),
                 );
               },
@@ -370,7 +400,6 @@ class _QuranPageState extends State<QuranPage> {
                               int.parse(_pageNoTextController.text.trim()) - 1,
                             );
                             _pageNoTextController.text = '';
-                            print('page is ${_pageNoTextController.text}');
                           },
                           child: const Text(
                             'الذهاب',

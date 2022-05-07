@@ -1,4 +1,5 @@
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:telawa/utils/sharedprefs.dart';
 
 void showToast(String message) {
   Fluttertoast.showToast(
@@ -8,6 +9,9 @@ void showToast(String message) {
     fontSize: 16.0,
   );
 }
+
+bool isCurrentPageIsTheMarkedPage() =>
+    sharedPrefs.markedPage == sharedPrefs.lastPage + 1;
 
 String getHezbSubNumberName(int hezbSubNumber) {
   switch (hezbSubNumber) {
@@ -26,12 +30,10 @@ String getHezbSubNumberName(int hezbSubNumber) {
 
 void showToastOfHezb({required int hezbNumber, int hezbSubNumber = 0}) {
   String hezbMsg = '${getHezbSubNumberName(hezbSubNumber)} حزب $hezbNumber';
-  print(hezbMsg);
   showToast(hezbMsg);
 }
 
 void getToastMessage({required int currentPage}) {
-  print('get toast msg $currentPage');
   switch (currentPage) {
     case 5:
       showToastOfHezb(hezbNumber: 1, hezbSubNumber: 1);

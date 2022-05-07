@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:telawa/pages/quran_page.dart';
+import 'package:telawa/utils/constants.dart';
 import 'package:telawa/utils/helper.dart';
 
 import '../utils/sharedprefs.dart';
@@ -35,10 +36,11 @@ class JuzItem extends StatelessWidget {
         ),
         onTap: () {
           sharedPrefs.lastPage = juzAndIndexMap.values.first - 1;
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const QuranPage(),
+              builder: (context) =>
+                  QuranPage(isBookmarkVisible: isCurrentPageIsTheMarkedPage()),
             ),
           );
           showToast('جزء ${juzAndIndexMap.keys.first}');

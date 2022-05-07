@@ -69,7 +69,8 @@ class SuraItem extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const QuranPage(),
+              builder: (context) =>
+                  QuranPage(isBookmarkVisible: isCurrentPageIsTheMarkedPage()),
             ),
           );
         },

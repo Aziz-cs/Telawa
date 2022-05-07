@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Din',
         primarySwatch: Colors.grey,
       ),
-      home: const QuranPage(),
+      home: QuranPage(),
     );
   }
 }
