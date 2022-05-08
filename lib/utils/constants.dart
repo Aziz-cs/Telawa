@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../model/sura.dart';
 
 var kTxtStyleWhite = const TextStyle(
-  color: Colors.white, fontSize: 16,
+  color: Colors.white, fontSize: 15.5,
   // height: 0.5,
 );
 

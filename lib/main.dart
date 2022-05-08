@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:telawa/utils/sharedprefs.dart';
@@ -7,6 +9,9 @@ import 'pages/quran_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await sharedPrefs.init();
+  if (Platform.isAndroid) {
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
   runApp(const MyApp());
 }
 

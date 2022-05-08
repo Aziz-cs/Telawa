@@ -21,6 +21,7 @@ class QuranPage extends StatefulWidget {
 
 class _QuranPageState extends State<QuranPage> {
   bool _isBarsVisible = false;
+  bool _isImageFullScreen = false;
   final pageController = PageController(
     initialPage: sharedPrefs.lastPage,
   );
@@ -138,8 +139,8 @@ class _QuranPageState extends State<QuranPage> {
 
   Image _buildQuranPage(int index) {
     return Image.asset(
-      'assets/images/${index + 1}.jpg',
-      fit: BoxFit.fill,
+      'assets/quran_pages/${index + 1}.jpg',
+      fit: _isImageFullScreen ? BoxFit.fill : BoxFit.contain,
     );
   }
 
@@ -252,6 +253,7 @@ class _QuranPageState extends State<QuranPage> {
               },
               label: Text(
                 'حفظ علامة',
+                textAlign: TextAlign.center,
                 style: kTxtStyleWhite,
               ),
             ),
@@ -282,6 +284,7 @@ class _QuranPageState extends State<QuranPage> {
               },
               label: Text(
                 'العلامة',
+                textAlign: TextAlign.center,
                 style: kTxtStyleWhite,
               ),
             ),
@@ -310,6 +313,7 @@ class _QuranPageState extends State<QuranPage> {
               },
               label: Text(
                 sharedPrefs.isDarkMode ? 'نهاري' : 'ليلي',
+                textAlign: TextAlign.center,
                 style: kTxtStyleWhite,
               ),
             ),
@@ -345,6 +349,7 @@ class _QuranPageState extends State<QuranPage> {
               ),
               label: Text(
                 'الفهرس',
+                textAlign: TextAlign.center,
                 style: kTxtStyleWhite,
               ),
             ),
@@ -416,6 +421,32 @@ class _QuranPageState extends State<QuranPage> {
                   }),
               label: Text(
                 'انتقال سريع',
+                textAlign: TextAlign.center,
+                style: kTxtStyleWhite,
+              ),
+            ),
+          ),
+          VerticalDivider(color: Colors.grey.shade400),
+          Expanded(
+            child: TextButton.icon(
+              style: ButtonStyle(
+                textStyle: MaterialStateProperty.all(
+                  const TextStyle(
+                    height: 1.2,
+                    fontFamily: 'Din',
+                  ),
+                ),
+              ),
+              icon: const Icon(
+                CupertinoIcons.textformat_size,
+                color: Colors.white,
+              ),
+              onPressed: () => setState(() {
+                _isImageFullScreen = !_isImageFullScreen;
+              }),
+              label: Text(
+                _isImageFullScreen ? 'حجم طبيعي' : 'ملئ الشاشة',
+                textAlign: TextAlign.center,
                 style: kTxtStyleWhite,
               ),
             ),
