@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:telawa/pages/content_page.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -21,7 +25,6 @@ class QuranPage extends StatefulWidget {
 
 class _QuranPageState extends State<QuranPage> {
   bool _isBarsVisible = false;
-  bool _isImageFullScreen = false;
   final pageController = PageController(
     initialPage: sharedPrefs.lastPage,
   );
@@ -140,7 +143,7 @@ class _QuranPageState extends State<QuranPage> {
   Image _buildQuranPage(int index) {
     return Image.asset(
       'assets/quran_pages/${index + 1}.jpg',
-      fit: _isImageFullScreen ? BoxFit.fill : BoxFit.contain,
+      fit: sharedPrefs.isFullscreen ? BoxFit.fill : BoxFit.contain,
     );
   }
 
@@ -318,6 +321,17 @@ class _QuranPageState extends State<QuranPage> {
               ),
             ),
           ),
+          VerticalDivider(color: Colors.grey.shade400),
+          IconButton(
+            onPressed: () async {
+              final InAppReview inAppReview = InAppReview.instance;
+              inAppReview.openStoreListing(appStoreId: '1622657577');
+            },
+            icon: const Icon(
+              CupertinoIcons.star_fill,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
     );
@@ -442,13 +456,26 @@ class _QuranPageState extends State<QuranPage> {
                 color: Colors.white,
               ),
               onPressed: () => setState(() {
-                _isImageFullScreen = !_isImageFullScreen;
+                sharedPrefs.isFullscreen = !sharedPrefs.isFullscreen;
               }),
               label: Text(
-                _isImageFullScreen ? 'حجم طبيعي' : 'ملئ الشاشة',
+                sharedPrefs.isFullscreen ? 'حجم طبيعي' : 'ملئ الشاشة',
                 textAlign: TextAlign.center,
                 style: kTxtStyleWhite,
               ),
+            ),
+          ),
+          VerticalDivider(color: Colors.grey.shade400),
+          IconButton(
+            onPressed: () {
+              String sharedContent = ''' 
+              - تطبيق "تلاوة | القرآن الكريم"\nإقرأ وردك الآن بجودة عالية مع إمكان القراءة الليلية وتعديل حجم الخط بدون إعلانات ولا نت.\nأندرويد:
+              https://play.google.com/store/apps/details?id=com.telawa.app\nأيفون:\nhttps://apps.apple.com/eg/app/id1622657577''';
+              Share.share(sharedContent);
+            },
+            icon: const Icon(
+              Icons.share,
+              color: Colors.white,
             ),
           ),
         ],

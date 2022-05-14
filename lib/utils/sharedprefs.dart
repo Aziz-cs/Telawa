@@ -8,6 +8,7 @@ class SharedPrefs {
   static const String keyMarkedPage = "markedPage";
   static const String keyLastTab = "lastTab";
   static const String keyIsDarkMode = "isDarkMode";
+  static const String keyIsFullscreen = "isFullscreen";
 
   init() async {
     if (_sharedPrefs == null) {
@@ -19,6 +20,7 @@ class SharedPrefs {
   int get lastTab => _sharedPrefs!.getInt(keyLastTab) ?? 0;
   int get markedPage => _sharedPrefs!.getInt(keyMarkedPage) ?? 0;
   bool get isDarkMode => _sharedPrefs!.getBool(keyIsDarkMode) ?? false;
+  bool get isFullscreen => _sharedPrefs!.getBool(keyIsFullscreen) ?? false;
 
   set lastPage(int value) {
     _sharedPrefs!.setInt(keyLastPage, value);
@@ -34,6 +36,10 @@ class SharedPrefs {
 
   set isDarkMode(bool value) {
     _sharedPrefs!.setBool(keyIsDarkMode, value);
+  }
+
+  set isFullscreen(bool value) {
+    _sharedPrefs!.setBool(keyIsFullscreen, value);
   }
 
   static void clearData() {
