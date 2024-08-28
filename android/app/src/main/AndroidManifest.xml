@@ -1,7 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.telawa.app">
-   <application
-        android:label="تلاوة"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="application"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

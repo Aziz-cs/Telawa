@@ -469,8 +469,7 @@ class _QuranPageState extends State<QuranPage> {
           IconButton(
             onPressed: () {
               String sharedContent = ''' 
-              - تطبيق "تلاوة | القرآن الكريم"\nإقرأ وردك الآن بجودة عالية مع إمكان القراءة الليلية وتعديل حجم الخط بدون إعلانات ولا نت.\nأندرويد:
-              https://play.google.com/store/apps/details?id=com.telawa.app\nأيفون:\nhttps://apps.apple.com/eg/app/id1622657577''';
+              - تطبيق "تلاوة | القرآن الكريم"\nإقرأ وردك الآن بجودة عالية مع إمكان القراءة الليلية وتعديل حجم الخط بدون إعلانات ولا نت.\nأندرويد:\nhttps://play.google.com/store/apps/details?id=com.telawa.application\nأيفون:\nhttps://apps.apple.com/eg/app/id1622657577''';
               Share.share(sharedContent);
             },
             icon: const Icon(

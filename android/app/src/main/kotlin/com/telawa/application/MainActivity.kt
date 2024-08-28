@@ -1,4 +1,4 @@
-package com.telawa.app
+package com.telawa.application
 
 import io.flutter.embedding.android.FlutterActivity
 
